@@ -11,7 +11,7 @@ Add the dependency (once published):
 
 ```xml
 <dependency>
-    <groupId>dev.cyphera</groupId>
+    <groupId>io.cyphera</groupId>
     <artifactId>cyphera-spring-boot-starter</artifactId>
     <version>0.1.0</version>
 </dependency>

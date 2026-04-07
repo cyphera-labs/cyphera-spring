@@ -1,4 +1,4 @@
-package dev.cyphera.spring;
+package io.cyphera.spring;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
