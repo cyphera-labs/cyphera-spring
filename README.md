@@ -17,7 +17,7 @@ Add the dependency (once published):
 </dependency>
 ```
 
-Add a `cyphera.yaml` to your classpath:
+Add a `cyphera.json` to your classpath:
 
 ```yaml
 policies:
@@ -51,7 +51,7 @@ public void example() {
 ```yaml
 # application.yml
 cyphera:
-  policy-file: classpath:cyphera.yaml       # local file
+  policy-file: classpath:cyphera.json       # local file
   # server-url: https://cyphera.company.com  # future: remote policy server
 ```
 

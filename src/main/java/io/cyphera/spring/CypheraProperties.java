@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * <pre>
  * cyphera:
- *   policy-file: classpath:cyphera.yaml
+ *   policy-file: classpath:cyphera.json
  *   # or
  *   server-url: https://cyphera.company.com/policies
  * </pre>
@@ -15,8 +15,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "cyphera")
 public class CypheraProperties {
 
-    /** Path to the policy YAML file. Supports classpath: and file: prefixes. */
-    private String policyFile = "classpath:cyphera.yaml";
+    /** Path to the policy JSON file. Supports classpath: and file: prefixes. */
+    private String policyFile = "classpath:cyphera.json";
 
     /** URL of a remote Cyphera policy server (future). */
     private String serverUrl;
