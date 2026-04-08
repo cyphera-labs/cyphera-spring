@@ -41,7 +41,7 @@ public void example() {
     String encrypted = cyphera.protect("ssn", "123-45-6789");
     // → "456-78-9012" (format preserved)
 
-    String decrypted = cyphera.unprotect("ssn", encrypted);
+    String decrypted = cyphera.access("ssn", encrypted);
     // → "123-45-6789"
 }
 ```
@@ -62,6 +62,6 @@ cyphera:
 | Method | Description |
 |--------|-------------|
 | `protect(policy, value)` | Encrypt using a named policy |
-| `unprotect(policy, value)` | Decrypt using a named policy |
+| `access(policy, value)` | Access (decrypt) using a named policy |
 | `ff1Encrypt(value, keyHex, alphabet)` | Direct FF1 encrypt |
 | `ff1Decrypt(value, keyHex, alphabet)` | Direct FF1 decrypt |
