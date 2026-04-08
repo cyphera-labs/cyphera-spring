@@ -2,8 +2,7 @@
 
 Spring Boot auto-configuration for Cyphera format-preserving encryption.
 
-> **Note**: Currently uses a dummy (reversible shift) cipher as a placeholder.
-> Real FF1 FPE will be wired in when `cyphera-java` is published to Maven.
+Built on [`io.cyphera:cyphera`](https://central.sonatype.com/artifact/io.cyphera/cyphera) from Maven Central.
 
 ## Usage
 
@@ -19,16 +18,15 @@ Add the dependency (once published):
 
 Add a `cyphera.json` to your classpath:
 
-```yaml
-policies:
-  ssn:
-    engine: ff1
-    alphabet: digits
-    key_ref: demo-key
-
-keys:
-  demo-key:
-    material: "2B7E151628AED2A6ABF7158809CF4F3C"
+```json
+{
+  "policies": {
+    "ssn": { "engine": "ff1", "alphabet": "digits", "key_ref": "demo-key", "tag": "T01" }
+  },
+  "keys": {
+    "demo-key": { "material": "2B7E151628AED2A6ABF7158809CF4F3C" }
+  }
+}
 ```
 
 Inject and use:
