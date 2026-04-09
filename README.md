@@ -12,7 +12,7 @@ Add the dependency (once published):
 <dependency>
     <groupId>io.cyphera</groupId>
     <artifactId>cyphera-spring-boot-starter</artifactId>
-    <version>0.1.0</version>
+    <version>VERSION</version>
 </dependency>
 ```
 
@@ -59,7 +59,7 @@ cyphera:
 
 | Method | Description |
 |--------|-------------|
-| `protect(policy, value)` | Encrypt using a named policy |
+| `protect(policy, value)` | Protect using a named policy |
 | `access(policy, value)` | Access (decrypt) using a named policy |
-| `ff1Encrypt(value, keyHex, alphabet)` | Direct FF1 encrypt |
-| `ff1Decrypt(value, keyHex, alphabet)` | Direct FF1 decrypt |
+| `access(value)` | Access using tag-based policy lookup |
+| `sdk()` | Access underlying Cyphera SDK instance |
