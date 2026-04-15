@@ -1,6 +1,7 @@
 # cyphera-spring
 
 [![CI](https://github.com/cyphera-labs/cyphera-spring/actions/workflows/ci.yml/badge.svg)](https://github.com/cyphera-labs/cyphera-spring/actions/workflows/ci.yml)
+[![Security](https://github.com/cyphera-labs/cyphera-spring/actions/workflows/codeql.yml/badge.svg)](https://github.com/cyphera-labs/cyphera-spring/actions/workflows/codeql.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 
 Format-preserving encryption for [Spring Boot](https://spring.io/projects/spring-boot) — auto-configured starter powered by Cyphera.
