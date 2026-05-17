@@ -23,16 +23,16 @@ public class CypheraAutoConfiguration {
     @ConditionalOnMissingBean
     public Cyphera cyphera(CypheraProperties properties) {
         try {
-            Resource resource = new DefaultResourceLoader().getResource(properties.getPolicyFile());
+            Resource resource = new DefaultResourceLoader().getResource(properties.getConfigurationFile());
             try (InputStream in = resource.getInputStream()) {
                 String json = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-                Cyphera instance = Cyphera.fromFile(properties.getPolicyFile());
-                LOG.info("Cyphera SDK loaded from " + properties.getPolicyFile());
+                Cyphera instance = Cyphera.fromFile(properties.getConfigurationFile());
+                LOG.info("Cyphera SDK loaded from " + properties.getConfigurationFile());
                 return instance;
             }
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Failed to load Cyphera config: " + properties.getPolicyFile(), e);
-            throw new RuntimeException("Failed to load Cyphera config: " + properties.getPolicyFile(), e);
+            LOG.log(Level.SEVERE, "Failed to load Cyphera config: " + properties.getConfigurationFile(), e);
+            throw new RuntimeException("Failed to load Cyphera config: " + properties.getConfigurationFile(), e);
         }
     }
 

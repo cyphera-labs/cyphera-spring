@@ -58,8 +58,8 @@ docker build -t cyphera-spring .
 ```yaml
 # application.yml
 cyphera:
-  policy-file: classpath:cyphera.json
-  # policy-file: file:/etc/cyphera/cyphera.json  # external file
+  configuration-file: classpath:cyphera.json
+  # configuration-file: file:/etc/cyphera/cyphera.json  # external file
 ```
 
 ## Usage
@@ -97,7 +97,7 @@ Cyphera sdk = cyphera.sdk();
 ### Policy Configuration
 
 - Default location: `classpath:cyphera.json`
-- Override with `cyphera.policy-file` in `application.yml`
+- Override with `cyphera.configuration-file` in `application.yml`
 - Supports `classpath:`, `file:`, and absolute paths
 - Policy changes require application restart
 
