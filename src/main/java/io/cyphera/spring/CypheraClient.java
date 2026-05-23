@@ -9,11 +9,12 @@ import io.cyphera.Cyphera;
  * &#64;Autowired
  * private CypheraClient cyphera;
  *
- * String encrypted = cyphera.protect("ssn", "123-45-6789");
- * String decrypted = cyphera.access("ssn", encrypted);
+ * String encrypted = cyphera.protect("123-45-6789", "ssn");
+ * String decrypted = cyphera.access(encrypted);
  * </pre>
  *
- * Delegates to the real Cyphera SDK.
+ * Delegates to the real Cyphera SDK. Argument order matches the SDK
+ * (value-first for protect; value-first for the 2-arg access escape hatch).
  */
 public class CypheraClient {
 
@@ -31,23 +32,25 @@ public class CypheraClient {
     }
 
     /**
-     * Protect a value using a named policy.
+     * Protect a value using a named configuration.
      */
-    public String protect(String policyName, String value) {
-        return cyphera.protect(value, policyName);
+    public String protect(String value, String configurationName) {
+        return cyphera.protect(value, configurationName);
     }
 
     /**
-     * Access a protected value using a named policy.
-     */
-    public String access(String policyName, String protectedValue) {
-        return cyphera.access(protectedValue, policyName);
-    }
-
-    /**
-     * Access a tag-encoded protected value (no policy name needed).
+     * Access a header-prefixed protected value. Primary form — the embedded header
+     * identifies which configuration to use.
      */
     public String access(String protectedValue) {
         return cyphera.access(protectedValue);
+    }
+
+    /**
+     * Access a protected value with an explicit configuration name.
+     * Escape hatch for headerless configurations.
+     */
+    public String access(String protectedValue, String configurationName) {
+        return cyphera.access(protectedValue, configurationName);
     }
 }

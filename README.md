@@ -26,8 +26,8 @@ Add `cyphera.json` to your classpath, inject `CypheraClient`, and protect data:
 @Autowired
 private CypheraClient cyphera;
 
-String protectedSsn = cyphera.protect("ssn", "123-45-6789");
-// → "T01i6J-xF-07pX" (tagged, dashes preserved)
+String protectedSsn = cyphera.protect("123-45-6789", "ssn");
+// → "T01i6J-xF-07pX" (header-prefixed, dashes preserved)
 
 String accessed = cyphera.access(protectedSsn);
 // → "123-45-6789"
@@ -68,16 +68,16 @@ cyphera:
 @Autowired
 private CypheraClient cyphera;
 
-// Protect — policy determines engine, alphabet, key
-String protectedValue = cyphera.protect("ssn", "123-45-6789");
+// Protect — the named configuration determines engine, alphabet, key
+String protectedValue = cyphera.protect("123-45-6789", "ssn");
 // → "T01i6J-xF-07pX"
 
-// Access — tag-based, no policy name needed
+// Access — header-driven, no configuration name needed
 String original = cyphera.access(protectedValue);
 // → "123-45-6789"
 
-// Access with explicit policy (for untagged values)
-String original = cyphera.access("ssn", protectedValue);
+// Access with explicit configuration (escape hatch for headerless configurations)
+String original = cyphera.access(protectedValue, "ssn");
 
 // Direct SDK access for advanced use
 Cyphera sdk = cyphera.sdk();
@@ -87,19 +87,19 @@ Cyphera sdk = cyphera.sdk();
 
 | Method | Description |
 |--------|-------------|
-| `protect(policy, value)` | Protect using a named policy |
-| `access(protectedValue)` | Access using tag-based policy lookup |
-| `access(policy, protectedValue)` | Access with explicit policy name |
-| `sdk()` | Access underlying Cyphera SDK instance |
+| `protect(value, configuration)` | Protect using a named configuration |
+| `access(protectedValue)` | Access using the embedded header (primary) |
+| `access(protectedValue, configuration)` | Access with explicit configuration name (escape hatch) |
+| `sdk()` | Access the underlying Cyphera SDK instance |
 
 ## Operations
 
-### Policy Configuration
+### Configuration
 
 - Default location: `classpath:cyphera.json`
 - Override with `cyphera.configuration-file` in `application.yml`
 - Supports `classpath:`, `file:`, and absolute paths
-- Policy changes require application restart
+- Configuration changes require application restart
 
 ### Monitoring
 
@@ -114,16 +114,16 @@ Cyphera sdk = cyphera.sdk();
 ### Troubleshooting
 
 - **Bean not created** — check that `cyphera.json` exists on the classpath
-- **"Unknown policy"** — policy name doesn't match cyphera.json
-- **"No matching tag"** — the protected value doesn't start with a known tag
+- **"Unknown configuration"** — configuration name doesn't match cyphera.json
+- **"No matching header"** — the protected value doesn't start with a known header
 
-## Policy File
+## Configuration File
 
 ```json
 {
-  "policies": {
-    "ssn": { "engine": "ff1", "key_ref": "my-key", "tag": "T01" },
-    "credit_card": { "engine": "ff1", "key_ref": "my-key", "tag": "T02" }
+  "configurations": {
+    "ssn": { "engine": "ff1", "key_ref": "my-key", "header": "T01" },
+    "credit_card": { "engine": "ff1", "key_ref": "my-key", "header": "T02" }
   },
   "keys": {
     "my-key": { "material": "2B7E151628AED2A6ABF7158809CF4F3C" }
@@ -134,7 +134,7 @@ Cyphera sdk = cyphera.sdk();
 ## Future
 
 - JPA `AttributeConverter` for transparent field-level encryption on entities
-- Dynamic policy reload without restart
+- Dynamic configuration reload without restart
 - Actuator health indicator for Cyphera status
 - Spring Security integration for role-based access policies
 
